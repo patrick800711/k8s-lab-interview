@@ -1,2 +1,5 @@
-# k8s-lab-interview
-K8s interview lab
+## System Requirements:
+* docker
+* KinD v0.20.0
+* kubectl (v1.25 recommended)
+* make

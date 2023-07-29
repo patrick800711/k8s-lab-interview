@@ -1,0 +1,26 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+name: local-lab
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    image: kindest/node:v1.25.11
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
+  - role: worker
+    image: kindest/node:v1.25.11
+  - role: worker
+    image: kindest/node:v1.25.11
+networking:
+  disableDefaultCNI: false
+  podSubnet: "100.64.0.0/10"
