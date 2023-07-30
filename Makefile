@@ -13,6 +13,8 @@ bootstrap_cluster:
 	@echo "Waiting for ingress pods to go ready (this may take a minute) ..."
 	kubectl -n ingress-nginx wait --for=condition=ready pod -l app.kubernetes.io/component=controller --timeout=300s
 	kubectl create namespace nginx
+	kubectl taint nodes $(KIND_CLUSTER_NAME)-worker workload=services:NoSchedule
+	kubectl taint nodes $(KIND_CLUSTER_NAME)-worker2 workload=services:NoSchedule
 
 scenario:
 	kubectl apply -f manifest.yaml
